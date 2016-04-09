@@ -7,41 +7,38 @@ import java.util.List;
 
 
 /**
- * The persistent class for the Theme database table.
+ * The persistent class for the Topic database table.
  * 
  */
 @Entity
-@NamedQuery(name="Theme.findAll", query="SELECT t FROM Theme t")
-public class Theme implements Serializable {
+@NamedQuery(name="Topic.findAll", query="SELECT t FROM Topic t")
+public class Topic implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
-	private int themeId;
+	private int topicId;
 
 	@Temporal(TemporalType.TIMESTAMP)
 	private Date date;
 
 	private String text;
 
+	private int userId;
+
 	//bi-directional many-to-one association to Response
-	@OneToMany(mappedBy="theme")
+	@OneToMany(mappedBy="topic")
 	private List<Response> responses;
 
-	//bi-directional many-to-one association to User
-	@ManyToOne
-	@JoinColumn(name="userId")
-	private User user;
-
-	public Theme() {
+	public Topic() {
 	}
 
-	public int getThemeId() {
-		return this.themeId;
+	public int getTopicId() {
+		return this.topicId;
 	}
 
-	public void setThemeId(int themeId) {
-		this.themeId = themeId;
+	public void setTopicId(int topicId) {
+		this.topicId = topicId;
 	}
 
 	public Date getDate() {
@@ -60,6 +57,14 @@ public class Theme implements Serializable {
 		this.text = text;
 	}
 
+	public int getUserId() {
+		return this.userId;
+	}
+
+	public void setUserId(int userId) {
+		this.userId = userId;
+	}
+
 	public List<Response> getResponses() {
 		return this.responses;
 	}
@@ -70,24 +75,16 @@ public class Theme implements Serializable {
 
 	public Response addRespons(Response respons) {
 		getResponses().add(respons);
-		respons.setTheme(this);
+		respons.setTopic(this);
 
 		return respons;
 	}
 
 	public Response removeRespons(Response respons) {
 		getResponses().remove(respons);
-		respons.setTheme(null);
+		respons.setTopic(null);
 
 		return respons;
-	}
-
-	public User getUser() {
-		return this.user;
-	}
-
-	public void setUser(User user) {
-		this.user = user;
 	}
 
 }
