@@ -14,7 +14,7 @@ import java.util.List;
 @NamedQuery(name="User.findAll", query="SELECT u FROM User u")
 public class User implements Serializable {
 	private static final long serialVersionUID = 1L;
-
+	
 	public static final int role_admin = 1;
 	public static final int role_other = 2;
 	
@@ -28,7 +28,7 @@ public class User implements Serializable {
 			return "Invalid role_id";
 		}
 	}
-	
+
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private int userId;

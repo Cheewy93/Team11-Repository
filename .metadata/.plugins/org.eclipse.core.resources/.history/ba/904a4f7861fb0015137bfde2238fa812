@@ -1,0 +1,79 @@
+package model;
+
+import java.io.Serializable;
+import javax.persistence.*;
+import java.util.Date;
+
+
+/**
+ * The persistent class for the Impression database table.
+ * 
+ */
+@Entity
+@NamedQuery(name="Impression.findAll", query="SELECT i FROM Impression i")
+public class Impression implements Serializable {
+	private static final long serialVersionUID = 1L;
+
+	@Id
+	@GeneratedValue(strategy=GenerationType.IDENTITY)
+	private int impressionId;
+
+	@Temporal(TemporalType.TIMESTAMP)
+	private Date date;
+
+	private String text;
+
+	//bi-directional many-to-one association to User
+	@ManyToOne
+	@JoinColumn(name="userId")
+	private User user;
+
+	//bi-directional many-to-one association to Book
+	@ManyToOne
+	@JoinColumn(name="bookId")
+	private Book book;
+
+	public Impression() {
+	}
+
+	public int getImpressionId() {
+		return this.impressionId;
+	}
+
+	public void setImpressionId(int impressionId) {
+		this.impressionId = impressionId;
+	}
+
+	public Date getDate() {
+		return this.date;
+	}
+
+	public void setDate(Date date) {
+		this.date = date;
+	}
+
+	public String getText() {
+		return this.text;
+	}
+
+	public void setText(String text) {
+		this.text = text;
+	}
+
+	public User getUser() {
+		return this.user;
+	}
+
+	public void setUser(User user) {
+		this.user = user;
+	}
+
+	public Book getBook() {
+		return this.book;
+	}
+
+	public void setBook(Book book) {
+		this.book = book;
+	}
+
+}
