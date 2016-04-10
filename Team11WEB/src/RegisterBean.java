@@ -4,8 +4,7 @@ import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.RequestScoped;
 
-import beans.UserSessionBean;
-import beans.UserStatefullBean;
+import beans.UserStatefullBeanRemote;
 
 @ManagedBean
 @RequestScoped
@@ -99,7 +98,7 @@ public class RegisterBean {
 
 	public String username;
 	
-	@EJB UserStatefullBean bean;
+	@EJB UserStatefullBeanRemote bean;
 	
 	
 	public void register() {
