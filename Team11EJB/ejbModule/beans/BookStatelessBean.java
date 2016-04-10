@@ -9,7 +9,6 @@ import javax.persistence.PersistenceContext;
 import javax.persistence.TypedQuery;
 
 import model.Book;
-import model.Category;
 import model.Impression;
 import model.User;
 
@@ -18,13 +17,13 @@ import model.User;
  */
 @Stateless
 @LocalBean
-public class BookCommunication implements BookCommunicationRemote {
+public class BookStatelessBean implements BookStatelessBeanRemote {
 
 	@PersistenceContext
 	EntityManager em;
 	
 	
-    public BookCommunication() {
+    public BookStatelessBean() {
         // TODO Auto-generated constructor stub
     }
     

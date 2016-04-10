@@ -5,6 +5,7 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.RequestScoped;
 
 import beans.UserSessionBean;
+import beans.UserStatefullBean;
 
 @ManagedBean
 @RequestScoped
@@ -98,15 +99,15 @@ public class RegisterBean {
 
 	public String username;
 	
-	@EJB UserSessionBean bean;
+	@EJB UserStatefullBean bean;
 	
 	
 	public void register() {
-		bean.register(username, password, birthDate, firstname, lastname, email, number);
+		bean.register(username, password, firstname, lastname, email, number, birthDate);
 	}
 	
 	public void registertest() {
-		bean.register("Test", "Test", new Date(), "Test", "Test", "Test", "00000");
+		bean.register("Test", "Test","Test", "Test", "Test", "00000", new Date());
 	}
 	
 

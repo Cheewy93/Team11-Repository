@@ -16,17 +16,17 @@ import model.User;
  * Session Bean implementation class CommunicationWithInterface
  */
 @Stateful
-public class CommunicationWithInterface implements CommunicationWithInterfaceRemote {
+public class UserStatefullBean implements UserStatefullBeanRemote {
 
 	@PersistenceContext
 	EntityManager em;
 	
 	@EJB
-	BookCommunication bookComm;
+	BookStatelessBean bookComm;
 	
 	private User userID;
 	
-    public CommunicationWithInterface() {
+    public UserStatefullBean() {
         // TODO Auto-generated constructor stub
     }
     
