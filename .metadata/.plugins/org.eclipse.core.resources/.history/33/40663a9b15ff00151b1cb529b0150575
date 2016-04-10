@@ -1,0 +1,20 @@
+package beans;
+
+import javax.ejb.LocalBean;
+import javax.ejb.Stateless;
+
+/**
+ * Session Bean implementation class UserSessionBean
+ */
+@Stateless
+@LocalBean
+public class UserSessionBean {
+
+    /**
+     * Default constructor. 
+     */
+    public UserSessionBean() {
+        // TODO Auto-generated constructor stub
+    }
+
+}
