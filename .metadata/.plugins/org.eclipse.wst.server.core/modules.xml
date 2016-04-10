@@ -1,4 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <modules>
   <module moduleId="org.eclipse.jst.jee.server:ea" serverId="WildFly  9.x 1459780815018"/>
+  <module moduleId="org.eclipse.jst.jee.server:Team11WEB" serverId="WildFly  9.x 1459780815018"/>
 </modules>
