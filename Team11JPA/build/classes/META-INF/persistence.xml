@@ -8,7 +8,7 @@
 		<class>model.Impression</class>
 		<class>model.Information</class>
 		<class>model.Response</class>
-		<class>model.Topic</class>
+		<class>model.Topic</class>    
 		<class>model.User</class>
 	</persistence-unit>
 </persistence>

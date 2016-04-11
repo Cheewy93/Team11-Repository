@@ -1,18 +1,17 @@
+package beans;
+
 import java.util.Date;
 
 import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.RequestScoped;
 
-import beans.UserStatefullBeanRemote;
 
 @ManagedBean
 @RequestScoped
-
-
-
-
 public class RegisterBean {
+	@EJB
+	StatelessBeanRemote sbr;
 	
 	public Date birthDate;
 
@@ -98,15 +97,13 @@ public class RegisterBean {
 
 	public String username;
 	
-	@EJB UserStatefullBeanRemote bean;
-	
 	
 	public void register() {
-		bean.register(username, password, firstname, lastname, email, number, birthDate);
+		sbr.register(username, password, firstname, lastname, email, number, birthDate);
 	}
 	
 	public void registertest() {
-		bean.register("Test", "Test","Test", "Test", "Test", "00000", new Date());
+		sbr.register("Test", "Test","Test", "Test", "Test", "00000", new Date());
 	}
 	
 

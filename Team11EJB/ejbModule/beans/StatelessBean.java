@@ -1,5 +1,6 @@
 package beans;
 
+import java.util.Date;
 import java.util.List;
 
 import javax.ejb.LocalBean;
@@ -13,41 +14,20 @@ import model.Impression;
 import model.User;
 
 /**
- * Session Bean implementation class BookCommunication
+ * Session Bean implementation class Team11Stateless
  */
 @Stateless
 @LocalBean
-public class BookStatelessBean implements BookStatelessBeanRemote {
+public class StatelessBean implements StatelessBeanRemote {
 
 	@PersistenceContext
 	EntityManager em;
 	
-	
-    public BookStatelessBean() {
+    /**
+     * Default constructor. 
+     */
+    public StatelessBean() {
         // TODO Auto-generated constructor stub
-    }
-    
-       
-    public boolean addBook(String author, String title, String description, String picture, User userID) {
-    	TypedQuery<Book> q = em.createQuery("SELECT b FROM Book b WHERE :title like b.title and :author like b.author", Book.class);
-    	q.setParameter("title", title);
-    	q.setParameter("author", author);
-    	Book test = q.getSingleResult();
-    	
-    	if (test != null) {
-    		//TODO: MESSAGE TO USER, BOOK EXISTS!
-    		return false;
-    	}
-    	
-    	Book newBook = new Book();
-    	newBook.setAuthor(author);
-    	newBook.setDescription(description);
-    	newBook.setTitle(title);
-    	newBook.setPicture(picture);
-    	newBook.setUser(userID);
-    	
-    	em.persist(newBook);
-    	return true;
     }
     
     public boolean addImpressions(Impression impression, Book book) {
@@ -70,6 +50,32 @@ public class BookStatelessBean implements BookStatelessBeanRemote {
     	em.merge(book);
     	
     	return true;
+    }
+    
+    public boolean register(String username, String password, String name, String lastName, String email, String phoneNumber, Date birthDate) {
+    	User newUser = new User();
+		newUser.setUsername(username);
+		newUser.setPassword(password);
+		newUser.setName(name);
+		newUser.setLastName(lastName);
+		newUser.setEmail(email);
+		newUser.setPhoneNumber(phoneNumber);
+		newUser.setBirthDate(birthDate);
+		
+		em.persist(newUser);
+		return true;
+    	
+    }
+    
+ // SAVE -------------------------------------------------------------------
+    
+    public boolean saveBook(Book b){
+    	try{
+    		em.persist(b);
+    		return true;
+    	}catch(Exception e){
+    		return false;
+    	}
     }
 
 }
