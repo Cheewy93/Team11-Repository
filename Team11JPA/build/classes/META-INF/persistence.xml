@@ -5,7 +5,7 @@
 		<class>model.Book</class> 
 		<class>model.Bookselling</class>
 		<class>model.Category</class>
-		<class>model.Impression</class>
+		<class>model.Impression</class> 
 		<class>model.Information</class>
 		<class>model.Response</class>
 		<class>model.Topic</class>    

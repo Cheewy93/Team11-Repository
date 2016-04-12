@@ -77,5 +77,10 @@ public class StatelessBean implements StatelessBeanRemote {
     		return false;
     	}
     }
+    
+    public List<Book> getBooks() {
+    	TypedQuery<Book> q = em.createQuery("SELECT b FROM Book b", Book.class);
+    	return q.getResultList();
+    }
 
 }

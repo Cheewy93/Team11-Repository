@@ -1,6 +1,8 @@
 package beans;
 
 
+import java.util.List;
+
 import javax.ejb.EJB;
 import javax.enterprise.context.RequestScoped;
 import javax.faces.application.FacesMessage;
@@ -16,7 +18,15 @@ public class BookManagedBean {
 	@ManagedProperty(value="#{loginManagedBean}")
 	private LoginManagedBean lmb;
 	@EJB
-	StatelessBeanRemote sbr;
+	StatelessBean sbr;
+	List<Book> books = null;
+	public List<Book> getBooks() {
+		return books;
+	}
+
+	public void setBooks(List<Book> books) {
+		this.books = books;
+	}
 
 	private Book book = new Book();
 	
@@ -28,18 +38,22 @@ public class BookManagedBean {
 		System.out.println(lmb.getCurrentUser());
 		book.setUser(lmb.getCurrentUser());
 		boolean ok = sbr.saveBook(book);
-		if (ok) {
-			FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_INFO,
-					"Uspesno!", null);
-			FacesContext.getCurrentInstance().addMessage(null, message);
-		} else {
-			FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_INFO,
-					"Neuspesno!", null);
-			FacesContext.getCurrentInstance().addMessage(null, message);
-		}
+//		if (ok) {
+//			FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_INFO,
+//					"Uspesno!", null);
+//			FacesContext.getCurrentInstance().addMessage(null, message);
+//		} else {
+//			FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_INFO,
+//					"Neuspesno!", null);
+//			FacesContext.getCurrentInstance().addMessage(null, message);
+//		}
 		return "";
 	}
 
+	public void getAllBooks() {
+		books = sbr.getBooks();
+	}
+	
 	public Book getBook() {
 		return book;
 	}
