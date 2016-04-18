@@ -1,0 +1,26 @@
+package manager;
+
+import javax.persistence.EntityManager;
+import javax.persistence.EntityManagerFactory;
+import javax.persistence.Persistence;
+
+import model.Book;
+import model.Category;
+import model.User;
+
+public class Test {
+public static void main(String[] args) {
+		
+		EntityManagerFactory emFactory = Persistence.createEntityManagerFactory("Team11JPA");
+		EntityManager entityManager = emFactory.createEntityManager();
+		entityManager.getTransaction().begin();
+		Category c = new Category();
+		c.setName("Drama");
+		entityManager.persist(c);
+		
+		entityManager.getTransaction().commit();
+		entityManager.close();
+		
+	}
+
+}

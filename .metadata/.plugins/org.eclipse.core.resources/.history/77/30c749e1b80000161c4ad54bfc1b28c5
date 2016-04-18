@@ -1,0 +1,21 @@
+package manager;
+
+public class Test {
+public static void main(String[] args) {
+		
+		EntityManagerFactory emFactory = Persistence.createEntityManagerFactory("library-jpa");
+		EntityManager entityManager = emFactory.createEntityManager();
+		entityManager.getTransaction().begin();
+		Knjiga k = new Knjiga();
+		k.setNaslov("Besnilo");
+		k.setAutor("Borislav Pekic");
+		k.setGodinaIzdanja("2000");
+		k.setIzdavac("Laguna");
+		entityManager.persist(k);
+		
+		entityManager.getTransaction().commit();
+		entityManager.close();
+		
+	}
+
+}

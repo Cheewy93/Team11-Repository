@@ -1,0 +1,47 @@
+package beans;
+
+import javax.faces.bean.SessionScoped;
+import javax.faces.context.FacesContext;
+import javax.servlet.http.HttpServletRequest;
+
+import model.User;
+
+@SessionScoped
+public class IndexManagedBean {
+	
+	private int role_admin = User.role_admin;
+	private int role_owner = User.role_other;
+	
+	String selectedId;
+	HttpServletRequest request = (HttpServletRequest) FacesContext
+			.getCurrentInstance().getExternalContext().getRequest();
+	HttpServletRequest req = (HttpServletRequest) request;
+	LoginManagedBean loggedUserSession = (LoginManagedBean) req.getSession()
+			.getAttribute("loginManagedBean");
+
+	private User loggedUser = loggedUserSession.getCurrentUser();
+	
+	public int getRole_admin() {
+		return role_admin;
+	}
+	
+	public void setRole_admin(int role_admin) {
+		this.role_admin = role_admin;
+	}
+	public int getRole_owner() {
+		return role_owner;
+	}
+	
+	public void setRole_owner(int role_owner) {
+		this.role_owner = role_owner;
+	}
+	
+	public User getLoggedUser() {
+		return loggedUser;
+	}
+	
+	public void setLoggedUser(User loggedUser) {
+		this.loggedUser = loggedUser;
+	}
+
+}

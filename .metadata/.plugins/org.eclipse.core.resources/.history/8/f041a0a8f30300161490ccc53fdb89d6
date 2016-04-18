@@ -1,0 +1,83 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core">
+
+<h:head>
+	<title><ui:insert name="title">World of Books</ui:insert></title>
+	<h:outputStylesheet name="css/teststyle.css" />
+</h:head>
+<h:body>
+	<div class="container">
+		<div class="header">
+			<div class="logo">
+				<h:graphicImage value="/resources/images/logo.jpg" height="100%"
+					width="100%" />
+			</div>
+			<div id="menu">
+				<h:form>
+					<ul>
+						<h:panelGroup id="admin"
+							rendered="#{(indexManagedBean.loggedUser.roleId  == indexManagedBean.role_admin)}">
+							<li><h:commandLink id="addNewsLink" value="Add news"
+									action="#{indexManagedBean.redirect}"
+									actionListener="#{indexManagedBean.menuClicked}" /></li>
+						</h:panelGroup>
+						<h:panelGroup id="other"
+							rendered="#{(indexManagedBean.loggedUser.roleId == indexManagedBean.role_other) || (indexManagedBean.loggedUser.roleId  == indexManagedBean.role_admin)}">
+							<li><h:commandLink id="newsLink" value="Information"
+									action="#{indexManagedBean.redirect}"
+									actionListener="#{indexManagedBean.menuClicked}" /></li>
+							<li><h:commandLink id="booksLink" value="Books"
+									action="#{indexManagedBean.redirect}"
+									actionListener="#{indexManagedBean.menuClicked}" /></li>
+							<li><h:commandLink id="addLink" value="Add book"
+									action="#{indexManagedBean.redirect}"
+									actionListener="#{indexManagedBean.menuClicked}" /></li>
+						</h:panelGroup>
+					</ul>
+				</h:form>
+			</div>
+		</div>
+		<div class="content">
+			<h:form>
+				<h:panelGrid columns="2">
+					<p:outputLabel value="Naslov" />
+					<p:inputText label="naslov"
+											value="#{bookManagedBean.book.title}" required="true"
+											validatorMessage="Ime mora da sadrzi samo slova">
+											<f:validateRegex pattern="[a-zA-Z]+" />
+					</p:inputText>
+					<p:outputLabel value="Autor" />
+					<p:inputText label="autor"
+											value="#{bookManagedBean.book.author}" required="true"
+											validatorMessage="Ime mora da sadrzi samo slova">
+											<f:validateRegex pattern="[a-zA-Z]+" />
+					</p:inputText>
+					<p:outputLabel value="Opis" />
+										<p:inputTextarea label="opis" rows="6" cols="33"
+											value="#{bookManagedBean.book.description}" />	
+					 <p:selectManyCheckbox id="grid" value="#{bookManagedBean.selectedCategories}" layout="grid" columns="8">
+						 <f:converter converterId="categoryConverter" />
+        				<f:selectItems value="#{bookManagedBean.categories}" var="c" itemLabel="#{c.name}" itemValue="#{c}" />
+   					 </p:selectManyCheckbox>						
+					<p:growl id="growl" life="3000" />
+					<p:commandButton action="#{bookManagedBean.addBook()}"
+											value="Sacuvaj" execute="@this" icon="ui-icon-disk"
+											update="growl" />		
+				</h:panelGrid>
+			</h:form>
+		</div>
+		<div class="footer">
+			<h:form>
+				<h:commandButton styleClass="btn"
+					style=" height:40px; margin-left: 80vw" value="Logout"
+					action="#{loginManagedBean.logout}" />
+			</h:form>
+		</div>
+	</div>
+</h:body>
+</html>

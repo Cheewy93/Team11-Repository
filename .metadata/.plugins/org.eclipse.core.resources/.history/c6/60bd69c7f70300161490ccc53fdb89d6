@@ -1,0 +1,61 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+<h:head>
+	<title><ui:insert name="title">News</ui:insert></title>
+	<h:outputStylesheet name="css/teststyle.css" />
+</h:head>
+<body>
+	<div class="container">
+		<div class="header">
+			<div class="logo">
+				<h:graphicImage value="/resources/images/logo.jpg" height="100%"
+					width="100%" />
+			</div>
+			<div id="menu">
+				<h:form>
+					<ul>
+						<li><h:commandLink id="newsLink" value="Information"
+									action="#{siteManagedBean.redirect}"
+									actionListener="#{siteManagedBean.menuClicked}" /></li>
+						<li><h:commandLink id="booksLink" value="Books"
+									action="#{siteManagedBean.redirect}"
+									actionListener="#{siteManagedBean.menuClicked}" /></li>
+					</ul>
+				</h:form>
+			</div>
+		</div>
+		<div class="content">
+			<br></br>
+			<h:form>
+				<h:panelGrid columns="2">
+						<p:outputLabel value="Naslov" />
+						<p:inputText label="naslov"
+							value="#{informationManagedBean.info.title}" required="true">
+						</p:inputText>
+						<p:outputLabel value="Tekst" />
+						<p:inputText label="tekst"
+							value="#{informationManagedBean.info.text}" required="true">
+						</p:inputText>
+						<p:growl id="growl" life="3000" />
+						<p:commandButton action="#{userManagedBean.addUser}"
+							value="Sacuvaj" execute="@this" icon="ui-icon-disk"
+							update="growl" />			
+				</h:panelGrid>
+			</h:form>
+		</div>
+		<div class="footer">
+			<h:form>
+				<h:commandButton styleClass="btn"
+					style=" height:40px; margin-left: 80vw" value="Logout"
+					action="#{informationManagedBean.addInformation}" />
+			</h:form>
+		</div>
+	</div>
+</body>
+</html>

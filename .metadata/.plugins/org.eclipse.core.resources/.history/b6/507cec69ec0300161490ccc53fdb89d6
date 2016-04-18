@@ -1,0 +1,35 @@
+package beans;
+
+import java.util.List;
+
+import javax.faces.bean.ManagedBean;
+import javax.faces.bean.ManagedProperty;
+import javax.faces.bean.ViewScoped;
+import javax.persistence.EntityManager;
+
+import manager.DBManager;
+import manager.JPAUtil;
+import model.Impression;
+
+@ManagedBean
+@ViewScoped
+public class ImpressionManagedBean {
+	
+	@ManagedProperty(value="#{bookManagedBean}")
+	private BookManagedBean bmb;
+
+	private List<Impression> impressions;
+	EntityManager em = JPAUtil.getEntityManager();
+	
+	public void getImpressionsForBook(){
+		setImpressions(new DBManager().getImpressionsForBook(em , bmb.getSelectedBook()));
+	}
+
+	public List<Impression> getImpressions() {
+		return impressions;
+	}
+
+	public void setImpressions(List<Impression> impressions) {
+		this.impressions = impressions;
+	}
+}

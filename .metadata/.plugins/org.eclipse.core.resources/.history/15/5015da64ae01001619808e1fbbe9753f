@@ -1,0 +1,47 @@
+package convertors;
+
+import javax.faces.application.FacesMessage;
+import javax.faces.component.UIComponent;
+import javax.faces.context.FacesContext;
+import javax.faces.convert.Converter;
+import javax.faces.convert.ConverterException;
+import javax.faces.convert.FacesConverter;
+
+import model.SalesUnit;
+import petShopManagerJSF.SalesUnitManagedBean;
+
+@FacesConverter("salesUnitConverter")
+public class SalesUnitConverter implements Converter {
+
+	public SalesUnitConverter() {
+	}
+
+	@Override
+	public Object getAsObject(FacesContext context, UIComponent arg1,
+			String arg2) {
+		SalesUnitManagedBean sumb = context.getApplication()
+				.evaluateExpressionGet(context, "#{salesUnitManagedBean}",
+						SalesUnitManagedBean.class);
+
+		for (SalesUnit su : sumb.getSalesUnits()) {
+			if (String.valueOf(su.getSalesUnitId()).equals(arg2))
+				return su;
+		}
+		throw new ConverterException(new FacesMessage(
+				String.format("Cannot convert " + arg2 + " to sales unit")));
+	}
+
+	@Override
+	public String getAsString(FacesContext arg0, UIComponent arg1, Object arg2) {
+		if (arg2 != null) {
+
+			SalesUnit su = (SalesUnit) arg2;
+			return String.valueOf(su.getSalesUnitId());
+
+		} else {
+			return "";
+		}
+
+	}
+
+}

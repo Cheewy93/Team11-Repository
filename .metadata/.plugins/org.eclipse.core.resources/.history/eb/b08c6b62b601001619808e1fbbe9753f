@@ -1,0 +1,145 @@
+package beans;
+
+
+import java.util.List;
+
+import javax.faces.application.FacesMessage;
+import javax.faces.bean.ManagedBean;
+import javax.faces.bean.ManagedProperty;
+import javax.faces.bean.RequestScoped;
+import javax.faces.context.FacesContext;
+import javax.persistence.EntityManager;
+
+import org.primefaces.event.SelectEvent;
+
+import manager.DBManager;
+import manager.JPAUtil;
+import model.Book;
+import model.Category;
+
+@ManagedBean
+@RequestScoped
+public class BookManagedBean {
+	
+	@ManagedProperty(value="#{loginManagedBean}")
+	private LoginManagedBean lmb;
+
+	private Book book = new Book();
+	private List<Book> books;
+	private List<Book> filtered;
+	private Book selectedBook;
+	private List<Category> categories;
+	private List<Category> selectedCategories;
+	private List<Book> booksForCategories;
+	
+	EntityManager em = JPAUtil.getEntityManager();
+	
+	public BookManagedBean() {
+		books = new DBManager().getAllBooks(em);
+		categories = new DBManager().getAllCategories(em);
+	}
+	
+	/*public void getBooksForCat(){
+		booksForCategories = new DBManager().getBooksForCategories(em, selectedCategories);
+	}*/
+
+
+	public String addBook() {
+		for(Category c: selectedCategories){
+			System.out.println(c.getCategoryId());
+		}
+		book.setUser(lmb.getCurrentUser());
+	/*	boolean ok = new DBManager().saveBook(em, book, selectedCategories);
+		if (ok) {
+			FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_INFO,
+					"Uspesno!", null);
+			FacesContext.getCurrentInstance().addMessage(null, message);
+		} else {
+			FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_INFO,
+					"Neuspesno!", null);
+			FacesContext.getCurrentInstance().addMessage(null, message);
+		}*/
+		return "";
+	}
+	
+	public List<Category> getSelectedCategories() {
+		return selectedCategories;
+	}
+
+	public void setSelectedCategories(List<Category> selectedCategories) {
+		this.selectedCategories = selectedCategories;
+	}
+
+	public String redirectToView() {
+		if (selectedBook != null) {
+			return "/pages/books/book-update?faces-redirect=true";
+		} else {
+			FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_INFO,
+					"Morate da izaberete red u tabeli!", null);
+			FacesContext.getCurrentInstance().addMessage(null, message);
+		}
+		return "";
+	}
+	
+	public void rowClickListener(SelectEvent event) {
+		if (event.getObject() != null) {
+			selectedBook = (Book) event.getObject();
+		}
+	}
+
+	public Book getBook() {
+		return book;
+	}
+
+	public void setBook(Book book) {
+		this.book = book;
+	}
+
+	public LoginManagedBean getLmb() {
+		return lmb;
+	}
+
+	public void setLmb(LoginManagedBean lmb) {
+		this.lmb = lmb;
+	}
+
+	public List<Book> getBooks() {
+		return books;
+	}
+
+	public void setBooks(List<Book> books) {
+		this.books = books;
+	}
+
+	public List<Book> getFiltered() {
+		return filtered;
+	}
+
+	public void setFiltered(List<Book> filtered) {
+		this.filtered = filtered;
+	}
+
+	public Book getSelectedBook() {
+		return selectedBook;
+	}
+
+	public void setSelectedBook(Book selectedBook) {
+		this.selectedBook = selectedBook;
+	}
+
+	public List<Category> getCategories() {
+		return categories;
+	}
+
+	public void setCategories(List<Category> categories) {
+		this.categories = categories;
+	}
+
+	public List<Book> getBooksForCategories() {
+		return booksForCategories;
+	}
+
+	public void setBooksForCategories(List<Book> booksForCategories) {
+		this.booksForCategories = booksForCategories;
+	}
+}

@@ -15,6 +15,20 @@ import java.util.List;
 public class User implements Serializable {
 	private static final long serialVersionUID = 1L;
 
+	public static final int role_admin = 1;
+	public static final int role_other = 2;
+	
+	public String getRole() {
+		switch (this.roleId) {
+		case role_admin:
+			return "Administrator";
+		case role_other:
+			return "Other";
+		default:
+			return "Invalid role_id";
+		}
+	}
+	
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private int userId;

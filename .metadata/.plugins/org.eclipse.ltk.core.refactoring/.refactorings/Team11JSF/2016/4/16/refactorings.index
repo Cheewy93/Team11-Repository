@@ -1,0 +1,29 @@
+1460476794852	Delete element
+1460477552586	Delete element
+1460477708025	Rename resource 'logo'
+1460478313027	Delete element
+1460478516577	Move 'css' to 'resources'
+1460478518800	Move 'images' to 'resources'
+1460497353018	Encapsulate field 'role_admin'
+1460497357991	Encapsulate field 'role_owner'
+1460497463088	Encapsulate field 'loggedUser'
+1460546957005	Delete element
+1460546988307	Delete element
+1460547531610	Delete element
+1460547535331	Delete element
+1460551143996	Delete element
+1460558355921	Encapsulate field 'books'
+1460558377635	Encapsulate field 'filtered'
+1460559051263	Encapsulate field 'selectedBook'
+1460562297103	Encapsulate field 'categories'
+1460562817869	Encapsulate field 'booksForCategories'
+1460575921041	Rename package 'converters'
+1460581354821	Rename resource 'book-view-logged.xhtml'
+1460820354209	Delete element
+1460820914758	Delete element
+1460821444131	Encapsulate field 'impressions'
+1460824812445	Delete element
+1460825007366	Delete element
+1460825037921	Rename resource 'news-add.xhtml'
+1460825244755	Rename resource 'news-rename.xhtml'
+1460826560577	Encapsulate field 'info'

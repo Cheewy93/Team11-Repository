@@ -1,0 +1,25 @@
+package beans;
+
+import javax.faces.bean.ManagedBean;
+import javax.faces.bean.RequestScoped;
+
+import model.Information;
+
+@ManagedBean
+@RequestScoped
+public class InformationManagedBean {
+
+	private Information info = new Information();
+
+	public void addInformation(){
+		
+	}
+	
+	public Information getInfo() {
+		return info;
+	}
+
+	public void setInfo(Information info) {
+		this.info = info;
+	}
+}

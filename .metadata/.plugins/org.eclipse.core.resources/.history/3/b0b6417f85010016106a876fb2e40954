@@ -1,0 +1,64 @@
+package beans;
+
+
+import java.util.List;
+
+import javax.ejb.EJB;
+import javax.faces.application.FacesMessage;
+import javax.faces.bean.ManagedBean;
+import javax.faces.bean.ManagedProperty;
+import javax.faces.bean.RequestScoped;
+import javax.faces.context.FacesContext;
+import javax.persistence.EntityManager;
+
+import manager.JPAUtil;
+import model.Book;
+
+@ManagedBean
+@RequestScoped
+public class BookManagedBean {
+	
+	@ManagedProperty(value="#{loginManagedBean}")
+	private LoginManagedBean lmb;
+
+	private Book book = new Book();
+	private List<Book> books;
+	
+	EntityManager em = JPAUtil.getEntityManager();
+	
+	public BookManagedBean() {
+		// TODO Auto-generated constructor stub
+	}
+	
+	public String addBook() {
+		System.out.println(lmb.getCurrentUser());
+		book.setUser(lmb.getCurrentUser());
+		boolean ok = sbr.saveBook(book);
+		if (ok) {
+			FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_INFO,
+					"Uspesno!", null);
+			FacesContext.getCurrentInstance().addMessage(null, message);
+		} else {
+			FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_INFO,
+					"Neuspesno!", null);
+			FacesContext.getCurrentInstance().addMessage(null, message);
+		}
+		return "";
+	}
+
+	public Book getBook() {
+		return book;
+	}
+
+	public void setBook(Book book) {
+		this.book = book;
+	}
+
+	public LoginManagedBean getLmb() {
+		return lmb;
+	}
+
+	public void setLmb(LoginManagedBean lmb) {
+		this.lmb = lmb;
+	}
+}

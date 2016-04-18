@@ -1,8 +1,0 @@
-package b;
-
-import javax.ejb.Remote;
-
-@Remote
-public interface StatRemote {
-
-}
