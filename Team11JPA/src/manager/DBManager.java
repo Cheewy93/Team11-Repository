@@ -6,6 +6,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.TypedQuery;
 
 import model.Book;
+import model.Bookselling;
 import model.Category;
 import model.Impression;
 import model.Information;
@@ -72,6 +73,18 @@ public class DBManager {
 			}
 		}
 		
+		public boolean saveBookSelling(EntityManager em, Bookselling bookselling) {
+			try {
+				em.getTransaction().begin();
+				em.persist(bookselling);
+				em.getTransaction().commit();
+				return true;
+			} catch (Exception e) {
+				e.printStackTrace();
+				return false;
+			}
+		}	
+		
 	// GET  ----------------------------------------------------------------
 
 		public List<Book> getAllBooks(EntityManager em) {
@@ -110,5 +123,7 @@ public class DBManager {
 		
 		public static void main(String[] args){
 			
-		}	
+		}
+
+		
 }
