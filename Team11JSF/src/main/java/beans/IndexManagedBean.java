@@ -42,6 +42,8 @@ public class IndexManagedBean {
 			return "/pages/news/news-create?faces-redirect=true";
 		case "addImpressionLink":
 			return "/pages/impression/impression-create?faces-redirect=true";
+		case "forumLink":
+			return "/pages/forum/forum-view?faces-redirect=true";
 		default:
 			return "/pages/profile-page?faces-redirect=true";
 		}

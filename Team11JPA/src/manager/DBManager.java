@@ -1,5 +1,8 @@
 package manager;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
 import javax.persistence.EntityManager;
@@ -9,6 +12,8 @@ import model.Book;
 import model.Category;
 import model.Impression;
 import model.Information;
+import model.Response;
+import model.Topic;
 import model.User;
 
 public class DBManager {
@@ -72,6 +77,43 @@ public class DBManager {
 			}
 		}
 		
+		public boolean saveTopic(EntityManager em, Topic topic) throws ParseException {
+			/*SimpleDateFormat sdf = new SimpleDateFormat("dd MM yyyy");
+			Date date = sdf.parse(new Date().toString());*/
+			/*SimpleDateFormat sdf = new SimpleDateFormat("EEE MMM dd HH:mm:ss zzz yyyy");
+			Date date = new Date();
+			Date date1 = sdf.parse(date.toString());
+			d.parse("dd MM yyyy");
+			topic.setDate(d);*/
+			topic.setDate(new Date());
+			try {
+				em.getTransaction().begin();
+				em.persist(topic);
+				em.getTransaction().commit();
+				return true;
+			} catch (Exception e) {
+				e.printStackTrace();
+				return false;
+			}
+		}
+		
+		public boolean saveResponse(EntityManager em, Response response) throws ParseException {
+			Date today = new Date();
+			SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy");
+	        String date = sdf.format(today);
+	        Date datee = sdf.parse(date);
+			response.setDate(datee);
+			try {
+				em.getTransaction().begin();
+				em.persist(response);
+				em.getTransaction().commit();
+				return true;
+			} catch (Exception e) {
+				e.printStackTrace();
+				return false;
+			}
+		}
+		
 	// GET  ----------------------------------------------------------------
 
 		public List<Book> getAllBooks(EntityManager em) {
@@ -108,7 +150,15 @@ public class DBManager {
 			return res;
 		}
 		
-		public static void main(String[] args){
-			
-		}	
+		public List<Topic> getAllTopics(EntityManager em) {
+			TypedQuery<Topic> tq = em.createQuery("select t from Topic t", Topic.class);
+			List<Topic> res = tq.getResultList();
+			return res;
+		}
+
+		public List<Response> getAllResponses(EntityManager em) {
+			TypedQuery<Response> tq = em.createQuery("select r from Response r", Response.class);
+			List<Response> res = tq.getResultList();
+			return res;
+		}
 }

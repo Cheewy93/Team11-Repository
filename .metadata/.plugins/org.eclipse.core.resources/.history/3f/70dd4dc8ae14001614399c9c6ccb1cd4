@@ -1,0 +1,64 @@
+package beans;
+
+import java.util.Date;
+import java.util.List;
+
+import javax.faces.application.FacesMessage;
+import javax.faces.bean.ManagedBean;
+import javax.faces.bean.ManagedProperty;
+import javax.faces.bean.RequestScoped;
+import javax.faces.context.FacesContext;
+import javax.persistence.EntityManager;
+
+import manager.DBManager;
+import manager.JPAUtil;
+import model.Category;
+import model.Topic;
+
+@ManagedBean
+@RequestScoped
+public class TopicManagedBean {
+	
+	@ManagedProperty(value="#{loginManagedBean}")
+	private LoginManagedBean lmb;
+
+	private Topic topic = new Topic();
+	private List<Topic> topics;
+	EntityManager em = JPAUtil.getEntityManager();
+	
+	public TopicManagedBean() {
+		topics = new DBManager().getAllTopics(em);
+	}
+	
+	public String addTopic() {
+		topic.setDate(new Date());
+		topic.setUser(lmb.getCurrentUser());
+		boolean ok = new DBManager().saveTopic(em,topic);
+		if (ok) {
+			FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_INFO,
+					"Uspesno!", null);
+			FacesContext.getCurrentInstance().addMessage(null, message);
+		} else {
+			FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_INFO,
+					"Neuspesno!", null);
+			FacesContext.getCurrentInstance().addMessage(null, message);
+		}
+		return "";
+	}
+
+	public LoginManagedBean getLmb() {
+		return lmb;
+	}
+
+	public void setLmb(LoginManagedBean lmb) {
+		this.lmb = lmb;
+	}
+
+	public Topic getTopic() {
+		return topic;
+	}
+
+	public void setTopic(Topic topic) {
+		this.topic = topic;
+	}
+}

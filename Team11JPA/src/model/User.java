@@ -28,7 +28,7 @@ public class User implements Serializable {
 			return "Invalid role_id";
 		}
 	}
-	
+
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private int userId;
@@ -61,6 +61,14 @@ public class User implements Serializable {
 	//bi-directional many-to-one association to Response
 	@OneToMany(mappedBy="user")
 	private List<Response> responses;
+
+	//bi-directional many-to-one association to Topic
+	@OneToMany(mappedBy="user")
+	private List<Topic> topics;
+
+	//bi-directional many-to-one association to Rating
+	@OneToMany(mappedBy="user")
+	private List<Rating> ratings;
 
 	public User() {
 	}
@@ -201,6 +209,50 @@ public class User implements Serializable {
 		respons.setUser(null);
 
 		return respons;
+	}
+
+	public List<Topic> getTopics() {
+		return this.topics;
+	}
+
+	public void setTopics(List<Topic> topics) {
+		this.topics = topics;
+	}
+
+	public Topic addTopic(Topic topic) {
+		getTopics().add(topic);
+		topic.setUser(this);
+
+		return topic;
+	}
+
+	public Topic removeTopic(Topic topic) {
+		getTopics().remove(topic);
+		topic.setUser(null);
+
+		return topic;
+	}
+
+	public List<Rating> getRatings() {
+		return this.ratings;
+	}
+
+	public void setRatings(List<Rating> ratings) {
+		this.ratings = ratings;
+	}
+
+	public Rating addRating(Rating rating) {
+		getRatings().add(rating);
+		rating.setUser(this);
+
+		return rating;
+	}
+
+	public Rating removeRating(Rating rating) {
+		getRatings().remove(rating);
+		rating.setUser(null);
+
+		return rating;
 	}
 
 }
