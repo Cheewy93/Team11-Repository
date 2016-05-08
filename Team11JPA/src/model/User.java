@@ -14,7 +14,6 @@ import java.util.List;
 @NamedQuery(name="User.findAll", query="SELECT u FROM User u")
 public class User implements Serializable {
 	private static final long serialVersionUID = 1L;
-
 	public static final int role_admin = 1;
 	public static final int role_other = 2;
 	
@@ -28,7 +27,6 @@ public class User implements Serializable {
 			return "Invalid role_id";
 		}
 	}
-
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private int userId;
@@ -58,6 +56,10 @@ public class User implements Serializable {
 	@OneToMany(mappedBy="user")
 	private List<Impression> impressions;
 
+	//bi-directional many-to-one association to Rating
+	@OneToMany(mappedBy="user")
+	private List<Rating> ratings;
+
 	//bi-directional many-to-one association to Response
 	@OneToMany(mappedBy="user")
 	private List<Response> responses;
@@ -65,10 +67,6 @@ public class User implements Serializable {
 	//bi-directional many-to-one association to Topic
 	@OneToMany(mappedBy="user")
 	private List<Topic> topics;
-
-	//bi-directional many-to-one association to Rating
-	@OneToMany(mappedBy="user")
-	private List<Rating> ratings;
 
 	public User() {
 	}
@@ -189,6 +187,28 @@ public class User implements Serializable {
 		return impression;
 	}
 
+	public List<Rating> getRatings() {
+		return this.ratings;
+	}
+
+	public void setRatings(List<Rating> ratings) {
+		this.ratings = ratings;
+	}
+
+	public Rating addRating(Rating rating) {
+		getRatings().add(rating);
+		rating.setUser(this);
+
+		return rating;
+	}
+
+	public Rating removeRating(Rating rating) {
+		getRatings().remove(rating);
+		rating.setUser(null);
+
+		return rating;
+	}
+
 	public List<Response> getResponses() {
 		return this.responses;
 	}
@@ -231,28 +251,6 @@ public class User implements Serializable {
 		topic.setUser(null);
 
 		return topic;
-	}
-
-	public List<Rating> getRatings() {
-		return this.ratings;
-	}
-
-	public void setRatings(List<Rating> ratings) {
-		this.ratings = ratings;
-	}
-
-	public Rating addRating(Rating rating) {
-		getRatings().add(rating);
-		rating.setUser(this);
-
-		return rating;
-	}
-
-	public Rating removeRating(Rating rating) {
-		getRatings().remove(rating);
-		rating.setUser(null);
-
-		return rating;
 	}
 
 }

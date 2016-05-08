@@ -50,7 +50,7 @@
 			<br />
 			<h:form>
 				<h:panelGrid columns="2">
-					<p:outputLabel value="Dodaj temu: " />
+					<p:outputLabel value="Dodajte temu: " style="font-weight:bold" />
 					<p:inputText label="tekst"
 											value="#{topicManagedBean.topic.text}" required="true">
 					</p:inputText>			
@@ -65,16 +65,17 @@
 			<h:form id="form">           
 	   		    <p:growl id="msgs" showDetail="true" />
 			    <h3 style="margin-top:0">Forum</h3>
-			    <p:accordionPanel>
+			    <p:accordionPanel multiple="true">
 					<c:forEach var="t" items="${topicManagedBean.topics}">
-						<p:tab title="${t.text} &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ${t.user.username} ${t.date}">
+						<p:tab title="${t.text} &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ${t.user.username}&nbsp;&nbsp;&nbsp; ${t.date}">
 				            <c:forEach var="r" items="${t.responses}">
 				            	<h:panelGrid columns="2" cellpadding="10">
-				            		<h:outputText value="${r.user.name}:" />
-				                	<h:outputText value="${r.text}" />
+				            		<h:outputText value="${r.user.name}:" style="font-weight:bold" />
+				                	<h:outputText value="${r.text}"  />
 				            	</h:panelGrid>
 				            </c:forEach>
 				            <form>
+				           		 <h:outputText value="Odgovor: " style="font-weight:bold" />
 				                <p:inputText label="tekst" 
 											value="#{topicManagedBean.response.text}" required="true"/>
 				            	<p:commandButton action="#{topicManagedBean.addResponse(t)}"

@@ -1,0 +1,185 @@
+package model;
+
+import java.io.Serializable;
+import javax.persistence.*;
+import java.util.List;
+
+
+/**
+ * The persistent class for the Book database table.
+ * 
+ */
+@Entity
+@NamedQuery(name="Book.findAll", query="SELECT b FROM Book b")
+public class Book implements Serializable {
+	private static final long serialVersionUID = 1L;
+
+	@Id
+	@GeneratedValue(strategy=GenerationType.IDENTITY)
+	private int bookId;
+
+	private String author;
+
+	private int authorId;
+
+	private String description;
+
+	private String picture;
+
+	private String title;
+
+	//bi-directional many-to-one association to User
+	@ManyToOne
+	@JoinColumn(name="userId")
+	private User user;
+
+	//bi-directional many-to-one association to Bookselling
+	@OneToMany(mappedBy="book")
+	private List<Bookselling> booksellings;
+
+	//bi-directional many-to-many association to Category
+	@ManyToMany(mappedBy="books")
+	private List<Category> categories;
+
+	//bi-directional many-to-one association to Impression
+	@OneToMany(mappedBy="book")
+	private List<Impression> impressions;
+
+	//bi-directional many-to-one association to Rating
+	@OneToMany(mappedBy="book")
+	private List<Rating> ratings;
+
+	public Book() {
+	}
+
+	public int getBookId() {
+		return this.bookId;
+	}
+
+	public void setBookId(int bookId) {
+		this.bookId = bookId;
+	}
+
+	public String getAuthor() {
+		return this.author;
+	}
+
+	public void setAuthor(String author) {
+		this.author = author;
+	}
+
+	public int getAuthorId() {
+		return this.authorId;
+	}
+
+	public void setAuthorId(int authorId) {
+		this.authorId = authorId;
+	}
+
+	public String getDescription() {
+		return this.description;
+	}
+
+	public void setDescription(String description) {
+		this.description = description;
+	}
+
+	public String getPicture() {
+		return this.picture;
+	}
+
+	public void setPicture(String picture) {
+		this.picture = picture;
+	}
+
+	public String getTitle() {
+		return this.title;
+	}
+
+	public void setTitle(String title) {
+		this.title = title;
+	}
+
+	public User getUser() {
+		return this.user;
+	}
+
+	public void setUser(User user) {
+		this.user = user;
+	}
+
+	public List<Bookselling> getBooksellings() {
+		return this.booksellings;
+	}
+
+	public void setBooksellings(List<Bookselling> booksellings) {
+		this.booksellings = booksellings;
+	}
+
+	public Bookselling addBookselling(Bookselling bookselling) {
+		getBooksellings().add(bookselling);
+		bookselling.setBook(this);
+
+		return bookselling;
+	}
+
+	public Bookselling removeBookselling(Bookselling bookselling) {
+		getBooksellings().remove(bookselling);
+		bookselling.setBook(null);
+
+		return bookselling;
+	}
+
+	public List<Category> getCategories() {
+		return this.categories;
+	}
+
+	public void setCategories(List<Category> categories) {
+		this.categories = categories;
+	}
+
+	public List<Impression> getImpressions() {
+		return this.impressions;
+	}
+
+	public void setImpressions(List<Impression> impressions) {
+		this.impressions = impressions;
+	}
+
+	public Impression addImpression(Impression impression) {
+		getImpressions().add(impression);
+		impression.setBook(this);
+
+		return impression;
+	}
+
+	public Impression removeImpression(Impression impression) {
+		getImpressions().remove(impression);
+		impression.setBook(null);
+
+		return impression;
+	}
+
+	public List<Rating> getRatings() {
+		return this.ratings;
+	}
+
+	public void setRatings(List<Rating> ratings) {
+		this.ratings = ratings;
+	}
+
+	public Rating addRating(Rating rating) {
+		getRatings().add(rating);
+		rating.setBook(this);
+
+		return rating;
+	}
+
+	public Rating removeRating(Rating rating) {
+		getRatings().remove(rating);
+		rating.setBook(null);
+
+		return rating;
+	}
+
+}

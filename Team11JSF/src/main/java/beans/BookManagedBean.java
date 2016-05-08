@@ -41,7 +41,7 @@ public class BookManagedBean {
 
 	public String addBook() {
 		for(Category c: selectedCategories){
-			System.out.println(c.getCategoryId());
+			System.out.println(c);
 		}
 		book.setUser(lmb.getCurrentUser());
 		boolean ok = new DBManager().saveBook(em, book, selectedCategories);
